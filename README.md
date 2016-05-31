@@ -22,4 +22,4 @@ A Sponge plugin to give every player the night vision effect
 
 ## Bugs
 Please report bugs here:
-//Insert link
+https://github.com/byYottaFLOPS/PermanentNightVision/issues
