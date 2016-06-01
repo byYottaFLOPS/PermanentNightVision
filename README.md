@@ -11,6 +11,10 @@ A Sponge plugin to give every player the night vision effect
 2. Move it into the mods folder of your server
 3. Start the server
 
+## Links
+Download: https://github.com/byYottaFLOPS/PermanentNightVision/releases/latest
+Source on Github: https://github.com/byYottaFLOPS/PermanentNightVision 
+
 ## Commands
 `/light on` Effects every player with night vision for a (nearly) unlimited time
 
@@ -20,6 +24,6 @@ A Sponge plugin to give every player the night vision effect
 
     !! The effect can be removed by drinking milk or /effect <PLAYER> clear !!
 
-## Bugs
-Please report bugs here:
+## Bugs & Feature Requests
+Please report bugs and feature requests here:
 https://github.com/byYottaFLOPS/PermanentNightVision/issues

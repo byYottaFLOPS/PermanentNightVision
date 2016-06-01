@@ -29,7 +29,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-@Plugin(id = "de.yottaflops.permanentnightvision", name = "Rermanent Night Vision", version = "1.0", description = "A plugin to effect every player with nightvision")
+@Plugin(id = "de.yottaflops.permanentnightvision", name = "Permanent Night Vision", version = "1.0", description = "A plugin to effect every player with nightvision")
 public class Main {
 
     PotionEffect nightVision = PotionEffect.builder().potionType(PotionEffectTypes.NIGHT_VISION).duration(1000000).amplifier(1).build();
