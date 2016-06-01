@@ -11,11 +11,11 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 
-class On implements CommandExecutor {
+class Reload implements CommandExecutor {
 
     private final Main plugin;
 
-    On(Main instance) {
+    Reload(Main instance) {
         plugin = instance;
     }
 
@@ -25,10 +25,10 @@ class On implements CommandExecutor {
         if(plugin.isOp((Player) commandSource)) {
             plugin.nightVisionOn = true;
 
-            plugin.nightVision = PotionEffect.builder().potionType(PotionEffectTypes.NIGHT_VISION).duration(1000000).amplifier(1).particles(false).build();
+            plugin.loadConfig();
 
             plugin.setEffect();
-            commandSource.sendMessage(Text.of(TextColors.WHITE, "Turned lights on!"));
+            commandSource.sendMessage(Text.of(TextColors.GREEN, "Reloaded config!"));
 
             plugin.saveConfig();
         } else {

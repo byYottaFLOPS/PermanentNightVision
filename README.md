@@ -20,6 +20,8 @@ Source on Github: https://github.com/byYottaFLOPS/PermanentNightVision
 
 `/light off` Removes EVERY night vision effect
 
+`/light reload` Reloads the config file -> Updates who is op, ...
+
 `/light particles <true/false>` Turn the particle effects on and off
 
     !! The effect can be removed by drinking milk or /effect <PLAYER> clear !!

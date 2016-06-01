@@ -25,9 +25,7 @@ import org.spongepowered.api.text.Text;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Plugin(id = "de.yottaflops.permanentnightvision", name = "Permanent Night Vision", version = "1.0", description = "A plugin to effect every player with nightvision")
 public class Main {
@@ -38,6 +36,8 @@ public class Main {
     private ConfigurationLoader<CommentedConfigurationNode> configLoader;
     private ConfigurationNode node;
     private Logger logger;
+    private List<String> ops = new ArrayList<>();
+    private ConfigurationNode opNode;
 
     @Inject
     @DefaultConfig(sharedRoot = true)
@@ -66,6 +66,12 @@ public class Main {
                 .description(Text.of("Turn particles on and off"))
                 .arguments(GenericArguments.onlyOne(GenericArguments.bool(Text.of("true/false"))))
                 .executor(new Particles(this))
+                .build());
+
+        subcommands.put(Collections.singletonList("reload"), CommandSpec.builder()
+                .permission("light.reload")
+                .description(Text.of("Reload the config"))
+                .executor(new Reload(this))
                 .build());
 
         CommandSpec nightVisionCommandSpec = CommandSpec.builder()
@@ -107,7 +113,8 @@ public class Main {
 
             node.getNode("nightVision").getNode("on").setValue(false);
             node.getNode("nightVision").getNode("particles").setValue(false);
-
+            node.getNode("nightVision").getNode("op").getNode("numberOfOps").setValue(1);
+            node.getNode("nightVision").getNode("op").getNode("1").setValue("Name here");
 
             try {
                 configLoader.save(node);
@@ -121,7 +128,7 @@ public class Main {
         }
     }
 
-    private void loadConfig() {
+    void loadConfig() {
         try {
             node = configLoader.load();
 
@@ -133,6 +140,13 @@ public class Main {
                 nightVision = PotionEffect.builder().potionType(PotionEffectTypes.NIGHT_VISION).duration(1000000).amplifier(1).particles(false).build();
             }
 
+            ops.clear();
+
+            for(int i = 1; i <= node.getNode("nightVision").getNode("op").getNode("numberOfOps").getInt(); i++) {
+                ops.add(node.getNode("nightVision").getNode("op").getNode(String.valueOf(i)).getString());
+                logger.info("Found " + node.getNode("nightVision").getNode("op").getNode(String.valueOf(i)).getString() + " in config");
+            }
+            opNode = node.getNode("nightVision").getNode("op");
 
             logger.info("Loaded config");
         } catch (Exception e) {
@@ -143,6 +157,8 @@ public class Main {
     void saveConfig() {
         try {
 
+            node.getNode("nightVision").getNode("op").setValue(opNode);
+
             node.getNode("nightVision").getNode("on").setValue(nightVisionOn);
             node.getNode("nightVision").getNode("particles").setValue(particles);
 
@@ -151,6 +167,15 @@ public class Main {
         } catch (IOException e) {
             logger.error("There was an error writing to the config file");
         }
+    }
+
+    boolean isOp(Player player) {
+        for(String s : ops) {
+            if(player.getName().equals(s)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     void setEffect() {
