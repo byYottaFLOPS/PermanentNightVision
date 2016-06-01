@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
 
-@Plugin(id = "de.yottaflops.permanentnightvision", name = "Permanent Night Vision", version = "1.0", description = "A plugin to effect every player with nightvision")
+@Plugin(id = "de.yottaflops.permanentnightvision", name = "Permanent Night Vision", version = "1.1", description = "A plugin to effect every player with nightvision")
 public class Main {
 
     PotionEffect nightVision = PotionEffect.builder().potionType(PotionEffectTypes.NIGHT_VISION).duration(1000000).amplifier(1).build();
